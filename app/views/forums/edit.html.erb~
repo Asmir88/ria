@@ -1,0 +1,6 @@
+<h1>Editing forum</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @forum, :class => :link_field %> |
+<%= link_to 'Back', forums_path, :class => :link_field %>

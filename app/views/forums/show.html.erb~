@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<% if @forum.topics !=[] %>
+<table cellspacing="0" class="table_form grad" >
+  <thead>
+    <tr>
+      <th width="50%">Topics</th>
+      <th width="20%">Posts</th>    
+      <th width="30%">Last Post</th> 
+    </tr>
+  </thead>
+
+  <% @forum.topics.each do |topic| %>
+    <tr>
+      <td><div><%= link_to topic.name, topic, :class => :name %></div> 
+      <div>Created by: 
+      <%if topic.user%>
+        <%=link_to topic.user.name, topic.user%>
+      <%else%>
+        <strong style = "color:red">DELETED USER</strong>
+      <%end%>
+       at <%=l topic.created_at, format: :long%></div>
+      </td>
+      <td class="count"><% n=topic.comments.count%>
+      <%if n == 0%>
+        No comments
+      <%else%>
+        <%=n%>
+      <%end%></td>
+      <td class="right">
+      <% if topic.comments != [] %>
+        <div>Posted by <%=link_to topic.comments.last.user.name, topic.comments.last.user%></div>
+        <div><%=l topic.comments.last.created_at, format: :long%>
+      <%else%>No Posts</div>
+      <%end%></td>
+      
+   <% if session[:user_id]%>
+<%if (@current_user.role == "admin" || @current_user.role == "admin_apsolute")%>
+      <td>
+      <%= link_to 'Destroy',topic, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    <%end%>  
+  <%end%> 
+    
+    </tr>
+  
+<% end %>
+</table>
+
+<%end%>
+ 
+<%= link_to "New Topic", new_forum_topic_path(@forum), :class => :link_field %>
+<%= link_to 'Back to Forum list', forums_path, :class => :link_field %>

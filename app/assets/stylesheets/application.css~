@@ -1,0 +1,76 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+ 
+
+    table tr th {background:#222; color:#fff; padding:0; border:#111 solid 1px;}  
+    table tr td {border:1px #ccc solid; padding:5px;}  
+    table tr td.right {background: #eee;}  
+    table tr td h4 {margin:0; padding:0; font-weight:normal;}  
+    
+    html, body {
+  background: #FFF;
+  color: #333;
+  font-family: Helvetica, "Lucida Grande", Arial, Georgia, sans-serif;
+  font-size: 16px;
+  line-height: 1.5em;
+}
+a {
+  color: #27B;
+}
+#site {
+  margin: auto;
+  width: 960px;
+}
+
+#header {
+  background: #B0E0E6;
+  color: #CD5C5C;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid;
+  font: small-caps 40px/40px "Times New Roman", serif;
+
+  text-align: center;
+}
+#header h1 {
+  font-size: 36px;
+}
+#header a, #footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#main {
+  margin: 10px;
+}
+
+#footer {
+  margin: 30px 0;
+  border-top: 1px solid #CCC;
+  font-size: 13px;
+}
+
+.listing {
+  margin: 20px;
+  padding: 10px;
+  background: #B0E0E6;
+  color: #CD5C5C;
+  border-radius: 5px;
+}
+
+h1 {
+  font-size: 20px;
+  background: transparent;
+}
+

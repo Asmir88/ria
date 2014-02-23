@@ -1,0 +1,2 @@
+Please sign up!
+<%= render 'form' %>

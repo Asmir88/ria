@@ -1,0 +1,11 @@
+Hi. Please enter the e-mail address you have used during your sign up for MyForum app. You will be sent an email with your password.
+
+<%= form_tag do |f| %>
+        <p>
+            <label for="name" >Email address:<br/></label>
+            <%= text_field_tag :email, params[:email]%>
+        </p>       
+        <p>
+            <%= submit_tag 'Submit' %></td>
+        </p>
+<% end%>

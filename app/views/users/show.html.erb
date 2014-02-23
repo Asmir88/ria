@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @user.name %>
+  <%if (@user.role!= nil && @user.role!="" )%>
+    (admin)
+  <%else%>
+    (user)
+  <%end%>
+</p>
+<p>
+  <%if @user.pic.exists?%>
+  
+    <%= image_tag(@user.pic.url) %>
+  <%else%>
+    <%=image_tag("avatar.jpg")%>
+  <%end%>
+</p>
+
+<p>
+  <b>E-mail address:</b>
+  <%= @user.email %>
+</p>
+<p>
+  <b>Joined: </b>
+  <%=l @user.created_at, format: :long%>
+</p>
+<p>
+  <b>Topics created: </b>
+  <%=@topics.count %></br>
+  <%@topics.each do |f|%>
+  &nbsp- <%=f.name%></br>
+  <%end%>
+</p>
+<p>
+  <b>Posts: </b>
+  <%=@user.comments.count%>
+</p>
+<!--<p>
+  <b>Hashed password:</b>
+  <%= @user.hashed_password %>
+</p>
+
+<p>
+  <b>Salt:</b>
+  <%= @user.salt %>
+</p>-->
+
+<%if @user.id == session[:user_id]%>
+  <%= link_to 'Edit user profile', edit_user_path(@user), :class => :link_field %>
+<%end%>
+<%= link_to 'Back to users list', users_path, :class => :link_field %>

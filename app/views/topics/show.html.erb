@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<%= render :partial => @topic %>
+
+<div>
+        <%= render :partial => @topic.comments %>
+</div>
+
+<%= form_for [@topic, Comment.new] do |f| %>
+        <p>
+                <%= f.label :body, "Add a comment:" %></br>
+                <%= f.text_area :body %>
+        </p>
+        <p><%= f.submit "Add comment" %></p>
+<% end %>
+
+<% if @topic.user == @current_user %>
+<%= link_to 'Edit topic', edit_topic_path(@topic), :class => :link_field %> 
+<%end%>
+<%= link_to "Back to forum #{@topic.forum.name}", forum_path(@topic.forum), :class => :link_field %>

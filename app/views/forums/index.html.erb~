@@ -1,0 +1,78 @@
+<p id="notice"><%= notice %></p>
+
+<%for k in @categories%>
+<%f = Forum.find_all_by_category(k)%>
+<%if f != []%>
+
+<table cellspacing="0" class="table_form grad" >
+  <thead>
+    <tr>
+      <th width="40%"><%=k%></th>  
+      <th width="15%">Topics</th>
+      <th width="15%">Posts</th>    
+      <th width="30%">Last Post</th> 
+    </tr>
+  </thead>
+
+<% f.each do |forum| %>
+  <tr>
+    <td><div><%= link_to forum.name, forum, :class => :name %></div> 
+    <small><div><%= forum.description %></div></small>
+    <div class = "content">Moderator: 
+    <%if forum.author_id != nil%>
+      <%=link_to User.find(forum.author_id).name, User.find(forum.author_id)%>
+    <%else%>
+      <strong style = "color:red">DELETED USER</strong>
+    <%end%>
+    </div></td>
+    <td class="count"><% n=forum.topics.count%>
+    <%if n == 0%>
+      No Topics
+    <%else%>
+      <%=n%>
+    <%end%></td>
+    <td class="count"><% m=forum.post_count%>
+    <%if m == 0%>
+      No Posts
+    <%else%>
+      <%=m%>
+    <%end%></td>
+    <td class="right">
+    <%=forum.last_topic_id%>
+      <%if forum.last_topic_id != nil %>
+        <%if forum.last_topic_id == 0%>
+          <div><strong style = "color:red">DELETED TOPIC</strong></div>
+        <%else%>
+          <div><%= link_to Topic.find(forum.last_topic_id).name, Topic.find(forum.last_topic_id)%></div>
+        <%end%>
+          <div>Posted by 
+          <%if forum.last_poster_id != nil%>
+            <%=link_to User.find(forum.last_poster_id).name, User.find(forum.last_poster_id)%>
+          <%else%>
+
+          <%end%>
+          </div>
+          <div><%=l forum.last_post_at, format: :long%>
+      <%else%>No Posts</div>
+    <%end%></td>  
+
+  <% if session[:user_id]%>
+    <%if (@current_user.role == "admin" || @current_user.role == "admin_apsolute")%>
+      <td>
+      <%= link_to 'Edit', edit_forum_path(forum) %>
+      </td>
+      <td>
+      <%= link_to 'Destroy',forum, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    <%end%>  
+  <%end%>    
+  </tr>
+    
+<% end %>
+<% end %>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New forum', new_forum_path, :class => :link_field %>

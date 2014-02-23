@@ -1,0 +1,71 @@
+<% if notice %>
+  <p id="notice" ><%= notice %></p>
+<% end %>
+
+<%if @users != []%>
+<table cellspacing="0" class="table_form grad">
+  <tr>
+    <th>Name</th>
+    <th>E-mail address</th>
+    <th>Joined at</th>
+
+  </tr>
+
+<% @users.each do |user| %>
+  <tr>
+    <td><%= link_to user.name, user %></td>
+    <td><%= user.email %></td>
+    <td><%= l user.created_at, format: :long %></td>
+
+
+    <% if @current_user%>
+    <td>
+    <% if ((@current_user.role == "admin_apsolute" || @current_user.role == "admin") && user.role!="admin_apsolute" && user != @current_user && @current_user.role != user.role)%>
+      
+    
+      <%= button_to 'Destroy', user, method: :delete, data: { confirm: "Are you sure you want to delete user #{user.name}?" } %>
+
+    <%end%>
+
+      <%if ((@current_user.role == "admin_apsolute" || @current_user.role == "admin") && (user.role == nil || user.role == ""))%>
+
+        <%= form_for(user) do |f| %>
+          <div>
+            <%= f.hidden_field :role, :value => "admin" %>
+          </div>
+          <div>
+            <%= f.submit 'Make Admin', data: { confirm: "Are you sure you want to make user #{user.name} an admin?" }%>
+          </div>
+        <% end %>
+        </td>
+
+      <%else if (@current_user.role == "admin_apsolute" && user.role == "admin")%>
+
+        <%= form_for(user) do |f| %>
+          <div>
+            <%= f.hidden_field :role, :value => nil %>
+          </div>
+          <div>
+            <%= f.submit 'Remove as Admin', data: { confirm: "Are you sure you want to remove the admin role from user #{user.name}?" }%>
+          </div>
+        <% end %>
+        </td>
+
+      <%end%>
+      <%end%>
+    <% end %>
+    </td>
+
+    <td>
+    <%if (user.role!= nil && user.role!="" )%>
+      admin
+    <%else%>
+      user
+    <%end%>
+    </td>
+
+  </tr>
+<% end %>
+</table>
+<br/>
+<%end%>

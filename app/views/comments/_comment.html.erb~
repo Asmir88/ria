@@ -1,0 +1,37 @@
+<table class="listing round <%= cycle('list-line-odd', 'list-line-even') %>
+">
+  <tr>
+    <td  class ="bor1 user" colspan="1" rowspan="3"><div>
+    <%if comment.user.pic.url%>
+      <%=image_tag(comment.user.pic.url)%>
+    <%else%>
+      <%=image_tag("avatar.jpg")%>
+    <%end%></br>
+    <strong><%= link_to comment.user.name, comment.user%></strong></div></br>
+    <small><div>Posts: <%=comment.user.comments.count%></div><div>Joined: <%=l comment.user.created_at, format: :long%></div></small></td>
+    <td  class ="bor0 post" colspan="1" rowspan="1"><div ><strong>Re:<%=comment.topic.name%></strong></div>
+    <div><small>Posted by <strong><%= link_to comment.user.name, comment.user%></strong> at <%=l comment.created_at, format: :long%></small></div></td>
+  </tr>
+  <tr>
+    <td class ="bor0 post" colspan="1" rowspan="1" height="100">
+    <%if (comment.reply_id != nil)%>
+      <table class="listing round reply"><tr><td class ="bor0 post"><%= Comment.find(comment.reply_id).user.name %> wrote:</td></tr>  
+      <tr><td class ="bor0 post">"
+      <%=Comment.find(comment.reply_id).body%>"</br></td></tr>
+      </table>
+    <%end%>
+    
+    <%= comment.body%></td>
+  </tr>
+  
+  <tr>
+    <td align="right" class ="bor0 post" colspan="1" rowspan="1">
+    <% if @current_user%> 
+      <%if (@current_user.role =="admin" || @current_user.role =="admin_apsolute")%>
+        <%= link_to 'Destroy', topic_comment_path(comment.topic, comment), method: :delete, controller: :comments, data: { confirm: 'Are you sure?' } %>|
+      <%end%>  
+    <%end%>
+    <%=link_to "Reply", new_topic_comment_path(comment.topic, :id=> comment.id)%>
+    </td>
+  </tr>
+</table>

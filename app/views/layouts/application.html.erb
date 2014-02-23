@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>App</title>
+    <!--[if lt IE 8]><%= stylesheet_link_tag 'blueprint/ie' %><![endif]-->
+    <%= stylesheet_link_tag 'custom', :media => 'screen' %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+
+  </head>
+  <body>
+    <div class="container">
+      <strong>
+      <div class="forumname">
+      MyForum
+      </div>
+      </strong>
+      <%= render 'layouts/header' %>
+      <div id="content">
+        <%= yield %>
+      </div>
+      <%= render 'layouts/footer' %> 
+    </div>
+  </body>
+</html>

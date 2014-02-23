@@ -1,0 +1,42 @@
+<table border=1 class="listing round post <%= cycle('list-line-odd', 'list-line-even') %>
+">
+  <%if topic.user%>
+  <tr>
+    <td  class ="bor1 user" colspan="1" rowspan="2"><div>
+    <%if topic.user.pic.exists?%>
+      <%=image_tag(topic.user.pic.url)%>
+    <%else%>
+      <%=image_tag("avatar.jpg")%>
+    <%end%></br>
+    <strong><%= link_to topic.user.name, topic.user%></strong></div><small></br>
+    <div>Posts: <%=topic.user.comments.count%></div><div>Joined: <%=l topic.user.created_at, format: :long%></div></small>
+    </td>
+    <td  class ="bor0 post" colspan="1" rowspan="1">
+      <div><strong><%=topic.name%></strong></div>
+      <div><small>Posted by <strong><%= link_to topic.user.name, topic.user%></strong> at <%=l topic.created_at, format: :long%></small></div>
+    </td>
+  </tr>
+  <tr>
+    <td class ="bor0 post">
+    <%= topic.body%>
+    </td>
+  </tr>
+  <%else%>
+  
+  <tr>
+    <td  class ="bor1 user" colspan="1" rowspan="2">
+    <div><strong style = "color:red">DELETED USER</strong></div>
+    </td>
+    <td  class ="bor0 post" colspan="1" rowspan="1">
+      <div><strong><%=topic.name%></strong></div>
+      <div><small>Created at <%=l topic.created_at, format: :long%></small></div>
+    </td>
+  </tr>
+  <tr>
+    <td class ="bor0 post">
+    <%= topic.body%>
+    </td>
+  </tr>
+  
+  <%end%>
+</table>

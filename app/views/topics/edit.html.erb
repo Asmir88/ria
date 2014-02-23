@@ -1,0 +1,7 @@
+<h1>Editing topic</h1>
+
+<%= render 'form' %>
+<p>
+<%= link_to 'Show topic', @topic, :class => :link_field %>
+<%= link_to "Back to forum #{@topic.forum.name}", @topic.forum, :class => :link_field %>
+</p>

@@ -1,0 +1,26 @@
+  <% if flash[:alert] %>
+    <p id="notice" ><%= flash[:alert] %></p>
+  <% end %>
+  
+  Reply to:
+  <%= render :partial => Comment.find(params[:id]) %>
+  
+  <%= form_for [Topic.find(params[:topic_id]), Comment.new] do |f|%>
+  
+   <!-- <% if params[:id] %><input type="hidden" id="comment_reply_id" name="comment[reply_id]" value="<%= params[:id] %>" /><% end %> -->
+    
+      <p class="field">    
+        <%= f.hidden_field :reply_id, :value => params[:id] %>
+      </p>      
+      <p>
+        <%= f.label :body, "Write your reply:" %></br>
+        <%= f.text_area :body %>  
+      </p>
+
+      <p>
+        <%= f.submit "Reply" %>
+      </p>
+      
+  <% end %>
+
+<%= link_to 'Back', topic_path(Topic.find(params[:topic_id])), :class => :link_field %>
